@@ -1,0 +1,246 @@
+{% extends 'layout/ForEmptyTamplate.html'%}
+{% load static %}
+{% block style%}
+<style>
+    span{
+        color: seashell;
+    }
+</style>
+{%endblock%}
+{%block content%}
+    <!-- page content -->
+    <div style="color: seashell;" class="right_col" role="main">
+        <div class="">
+
+          <div style="padding-top: 8%;" class="row">
+
+            <div class="col-md-12 col-sm-12 ">
+              <!-- Smart Wizard -->
+             <div style="margin-bottom: 4%;">
+              <center> <h3>Initialisation of the password</h3></center>
+              <center> <p>A message will be sent to your G-mail count with a new password</p></center>
+              <center>    <p><img style="width: 60px;height: 60px;" src="{% static 'images/tkl_.png' %}"   alt=""></p></center>
+              <center> <p><a href="{% url 'get_registrer_view'%}">LOGIN</a></p></center>
+             </div>
+              <div id="wizard" class="form_wizard wizard_horizontal">
+                    
+                <ul class="wizard_steps">
+         
+                  <li>
+                    <a href="#step-1">
+                      <span class="step_no">1</span>
+                      <span class="step_descr">
+                                        Step 1<br />
+                                        <small>Step 1 description</small>
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-2">
+                      <span class="step_no">2</span>
+                      <span class="step_descr">
+                                        Step 2<br />
+                                        <small>Step 2 description</small>
+                                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-3">
+                      <span class="step_no">3</span>
+                      <span class="step_descr">
+                                        Step 3<br />
+                                        <small>Step 3 description</small>
+                                    </span>
+                    </a>
+                  </li>
+                </ul>
+              
+                <form action="" method="POST" class="form-horizontal form-label-left">
+                  {% csrf_token %}
+                  <div id="step-1">
+                    <div class="form-group row">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="first_name">Username<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 ">
+                        <input onchange="recuperationmail(this.value)" type="text" id="first_name" name="first_name" value="{{user.first_name}}" required="required" class="form-control " required=""/>
+                      </div>
+                    </div>
+            
+
+                  </div>
+
+                <div id="step-2">
+                      <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="adress"><span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 "><center><h3 id="email"></h3></center></div>
+                      </div>
+                     
+                      <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="adress"><span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 "><center><p id="complete"></p></center></div>
+                      </div>            
+                  
+                      <div id="displaynone" class="form-group row">
+                       
+                  </div>
+
+
+                 </div>
+
+                <div id="step-3"> 
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="adress"><span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 "><center><h3 id="presack"></h3></center></div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="adress"><span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 "><center><h3 id="response"></h3></center></div>
+                      </div>
+                </div>
+                
+              <button id="buttonFinish" type="submit"></button>
+                </form>
+            
+              <!-- End SmartWizard Content -->
+              </div>
+              <!-- End SmartWizard Content -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /page content -->
+{% endblock %}
+{%block script%}
+
+<script>
+
+   $(function(){
+    $('.buttonFinish').prop('disabled',true);
+        $('#buttonFinish').hide();
+
+        $('.buttonFinish').on('click',function(){
+            //$('#buttonFinish').click();
+            getPasswordInitialized()
+        
+        })
+   
+       
+    });
+  function recuperationmail(val){
+  var  elements="";
+  $("#posterContentId").empty();
+  $("#pgination").empty();
+
+     $.get(
+            "{% url 'Security_returnMailByUSername' %}",
+                { username: val,},
+            function (response) { 
+      
+           if(response.val==0){
+                $('#email').text("ERROR NO EMAIL FOUND");
+                $('#complete').empty();
+                $('#displaynone').empty();
+                $('#presack').text("Click Previous and inner your Right Username, Please");
+                $('.buttonFinish').prop('disabled',true);
+               
+          }
+      else{
+        $('#email').text(response[0].email+"*******************")
+        $('#displaynone').empty();
+        $('#complete').empty();
+        $('#complete').text("complete this e-mail, so that the sytem may initialise your password");
+        elements='<label class="col-form-label col-md-3 col-sm-3 label-align" for="adress">E-mail <span class="required">*</span>';
+          elements +='</label>';
+              elements +='<div class="col-md-6 col-sm-6 ">';
+            elements +='<input onchange="checkUserEmail(this.value)" type="email" id="email_" name="email" required="required" class="form-control " required=""/>';
+          elements +='</div>';
+          $('#displaynone').append(elements);
+          $('.buttonFinish').prop('disabled',false);
+          
+          $('#presack').empty();
+          $('#presack').text("Click Finish To End The Process");
+
+      }
+    },
+      "json"
+    );
+}
+</script>
+
+<script>
+  function checkUserEmail(email){
+      
+      var $usernameField=$('#email_')
+      var $username=$('#first_name').val()
+
+      $.get(
+          "{% url 'Security_returnMailByUSernameChecking' %}",
+              { email: email,
+                username:$username
+              },
+      function (response) {
+          if (response[0].true=="true"){
+            //alert(response)
+            $usernameField.css({ // on remet le style des champs comme on l'avait défini dans le style CSS
+              borderColor: '#ccc',
+              color: '#555'
+            });
+           
+            $('.buttonFinish').prop('disabled',false);
+            $('#presack').empty();
+            $('#presack').text("Click Finish To End The Process");
+          }
+          else {
+           // alert("Not matched")
+           $usernameField.css({ // on remet le style des champs comme on l'avait défini dans le style CSS
+              borderColor: 'red',
+              color: 'red'
+            });
+
+            $('.buttonFinish').prop('disabled',true);
+            $('#presack').empty();
+            $('#presack').text("Click Previous and inner your Right E-mail, Please");
+        
+    }
+  
+       },
+          "json"
+       );
+  
+  }
+</script>
+
+<script>
+   function getPasswordInitialized(){
+ 
+      var $email=$('#email_').val()
+      var $username=$('#first_name').val()
+      $('#response').text("Wait,please 😺  !!!");
+     
+      $.get(
+          "{% url 'Security_InitializationBySendingMail' %}",
+              { email: $email,
+                username:$username
+              },
+      function (response) {
+
+        if(response[0].message=="error"){
+          $('#response').text(""+response[0].message);
+        }
+        else{
+          $('#response').text(""+response[0].message);
+        }
+       },
+          "json"
+       );
+  
+  }
+
+
+</script>
+
+{%endblock%}

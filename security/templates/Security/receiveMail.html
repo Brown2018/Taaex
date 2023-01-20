@@ -1,0 +1,80 @@
+{% extends 'Security/securityLayout.html'%}
+{% load static %}
+{%block main%}
+  <!--Main layout-->
+  <main>
+    <div class="container">
+        <center>
+            <div class="col-md-6">
+              <section class="mb-5">
+                {% if message == 1 %}
+                     <p  class="note note-success mb-5" >Message envoyé avec success</p>
+                {%else%}
+                     <p  class="note note-danger mb-5" >un probleme est survenu lors de l'envoie du mail, veillez contacter le service client</p>
+                {%endif%}
+              </section>
+             
+            </div>
+          </center>
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center">
+
+        <!--Grid column-->
+        <div class="col-md-6">
+
+          <!--Section: Content-->
+          <section class="mt-4 mb-5">
+
+
+            <form method="POST" action="{%url 'security_resentMessage'%}">
+                {%csrf_token%}
+            <input name="user" type="hidden" value="{{user.id}}"/>
+              <div class="md-form md-outline mt-0">
+                <input type="email" id="defaultForm-email2" value="{{email}}" name="email" class="form-control">
+                <label data-error="wrong" data-success="right" for="defaultForm-email2">Entrez votre adresse mail</label>
+              </div>
+        
+           
+
+            <div class="text-center mb-2">
+        
+              <button type="submit" class="btn warning-color mb-4">Renvoyez le mail</button>
+            </form>
+              <p>or sign up with:</p>
+        
+              <a type="button" class="btn-floating btn-fb btn-sm mr-1">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a type="button" class="btn-floating btn-tw btn-sm mr-1">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a type="button" class="btn-floating btn-li btn-sm mr-1">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a type="button" class="btn-floating btn-git btn-sm">
+                <i class="fab fa-github"></i>
+              </a>
+        
+              <hr class="mt-4">
+        
+              <p>By clicking
+                <em>Sign up</em> you agree to our
+                <a href="">terms of service</a>
+              </p>
+        
+            </div>
+
+          </section>
+          <!--Section: Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+
+    </div>
+  </main>
+  <!--Main layout-->
+{%endblock%}
