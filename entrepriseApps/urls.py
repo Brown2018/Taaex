@@ -17,7 +17,12 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404, handler500, handler403, handler400
+from entrepriseApps import views as  views_
 
+
+handler404 = views_.handler404
+handler500 = views_.handler500
 urlpatterns = [
    
     path('', include('security.urls')),

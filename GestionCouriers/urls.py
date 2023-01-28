@@ -13,11 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path,include
+from django.urls import path,include,re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from GestionCouriers import views
+from entrepriseApps import views as  views_
 
+
+handler404 = views_.handler404
+handler500 = views_.handler500
 urlpatterns = [
     
     path('index',views.dashboard,name="dashbord"),
@@ -27,5 +31,11 @@ urlpatterns = [
     path('courrierEntrant',views.courrierEntrant,name="courrierEntrant"),
     path('courrierSortant',views.courrierSortant,name="courrierSortant"),
     path('listeCourrier',views.listeCourrier,name="listeCourrier"),
+    #POST
+    path('postpersonneMorale',views.postpersonneMorale,name="postpersonneMorale"),
+    path('postpersonnePhysique',views.postpersonnePhysique,name="postpersonnePhysique"),
+    path('postpersonneMorale',views.postpersonneMorale,name="postpersonneMorale"),
+    re_path(r'^detailperso/(?P<codex>\w+)/$', views.detailpersonnePhysique,name="detailpersonnePhysique"),
+    re_path(r'^detailpersmoral/(?P<codex>\w+)/$', views.detailpersonneMorale,name="detailpersonneMorale")
     
 ]#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

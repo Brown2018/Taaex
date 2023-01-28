@@ -21,24 +21,24 @@ from .dao.dao_user import dao_user
 
 def signIn(request):
     try:
-        #-----------------  Menu -------------------------------
-        appName="Tkngo Shops"
-        #menu=tkngoMenu.getMenu(appName)
-        #-------------------------------------------------------
+
         next = request.GET.get('next')
         username = request.POST['Username']
         password = request.POST['Password']
         user = authenticate(username=username, password=password)
         login(request,user)
         if user.is_authenticated:
-            
-            None 
+            #-----------------  user ----------------------
+            getuser_id=user.id                    #
+            username= dao_user.getUtilisateur(getuser_id) #
+            #----------------- / user ---------------------            
         else:
             raise Exception
 
         dash_board = 'Enregistrement'
         context = {
-            'title': "tkngo Bienvenue dans l'espace shop",
+            'title': "Dashboard",
+            'entreprise':username.entreprise
             #'application':menu
         }
         # template = loader.get_template('aSideTop/Layout.html')

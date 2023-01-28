@@ -15,30 +15,99 @@
 
   <section class="section dashboard">
     <div class="row">
-
-      <!-- Left side columns -->
-      <div class="col-lg-8">
-        <div class="row">
           <!-- Recent P.M -->
-          <div class="modal fade" id="basicModal" tabindex="-1">
+          <div class="modal fade" id="physiquePersonne" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Basic Modal</h5>
+                        <h5 class="card-title">Ajout Personne Morale</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae
-                        quo sit molestias sint dignissimos.
+                      <form action="{% url 'postpersonneMorale'%}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                              
+                                <div class="col-md-6">
+                                    <input type="text" name="intitule" class="form-control" placeholder="Nom">
+                                    <br>
+                                </div>       
+                                <div class="col-md-6">
+                                  <input type="text" name="rccm" class="form-control" placeholder="	N° Rccm">
+                                  <br>
+                              </div>
+                              
+                              <div class="col-md-6">
+                                <input type="text" name="siren" class="form-control" placeholder="siren">
+                                <br>
+                            </div>       
+                            <div class="col-md-6">
+                              <select name="Forme_juridique" class="form-select" aria-label="Default select example">
+                                <option value="B50 - Autres Sociétés (AS)">B50 - Autres Sociétés (AS)</option>
+                                <option value="B31 - Etablissement public ayant une activité et bénéficiant de l'autonomie juridique et financière">B31 - Etablissement public ayant une activité et bénéficiant de l'autonomie juridique et financière</option>
+                                <option value="B12 - Société à responsabilité limitée pluripersonnelle (SARL)">B12 - Société à responsabilité limitée pluripersonnelle (SARL)</option>
+                                <option value="B13 - Société à Responsabilité limitée unipersonnelle (SARL unipersonnelle)">B13 - Société à Responsabilité limitée unipersonnelle (SARL unipersonnelle)</option>
+                                <option value="B14 - Société anonyme pluripersonnelle (SA)">B14 - Société anonyme pluripersonnelle (SA)</option>
+                                <option value="B15 - Société anonyme unipersonnelle (SA unipersonnelle)">B15 - Société anonyme unipersonnelle (SA unipersonnelle)</option>
+                                <option value="B42 - Société civile par sa forme et commerciale par son objet (SP)">B42 - Société civile par sa forme et commerciale par son objet (SP)</option>
+                                <option value="B41 - Société civile professionnelle (SCP)">B41 - Société civile professionnelle (SCP)</option>
+                                <option value="B32 - Société d'économie mixte">B32 - Société d'économie mixte</option>
+                                <option value="B30 - Société d'Etat">B30 - Société d'Etat</option>
+                                <option value="B10 - Société en commandite Simple (SCS)">B10 - Société en commandite Simple (SCS)</option>
+                                <option value="B11 - Société en nom collectif (SNC)">B11 - Société en nom collectif (SNC)</option>
+                                <option value="B16 - Société par action simplifiée (SAS)">B16 - Société par action simplifiée (SAS)</option>
+                                <option value="B17 - Société par action simplifiée unipersonnelle (SASU)">B17 - Société par action simplifiée unipersonnelle (SASU)</option>
+                                <option value="C10 - Groupement d'intérêt économique (GIE)">C10 - Groupement d'intérêt économique (GIE)</option>
+                                <option value="C11 - Groupements dotés de la personnalité juridique que la loi soumet à l'immatriculation au RCCM (GDPJLSI)">C11 - Groupements dotés de la personnalité juridique que la loi soumet à l'immatriculation au RCCM (GDPJLSI)</option>
+                                </select>
+                              <br>
+                          </div>    
+                          <div class="col-md-6">
+                            <input type="datetime-local" name="Date_creation_entreprise" class="form-control" placeholder="Date_creation_entreprise">
+                            <br>
+                        </div>  
+                        <div class="col-md-6">
+                          <input type="text" name="Effectifs" class="form-control" placeholder="Effectifs">
+                          <br>
+                      </div>     
+                        <div class="col-md-6">
+                          <input type="text" name="specialisation" class="form-control" placeholder="Specialisation">
+                          <br>
+                      </div>
+                      
+                      <div class="col-md-12">
+                        <input type="text" name="adresse" class="form-control" placeholder="Adresse">
+                        <br>
+                    </div>     
+                    <div class="col-md-12">
+                      <input type="text" name="email" class="form-control" placeholder="E-mail">
+                      <br>
+                  </div>    
+                  <div class="col-md-12">
+                    <input type="text" name="tel" class="form-control" placeholder="Téléphone">
+                    <br>
+                </div>    
+                    <div class="col-md-12">
+                      <textarea  style="height: 100px;" name="apropos" class="form-control" placeholder="A propos"></textarea>
+                      <br>
+                  </div> 
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-success">Ajouter</button>
+                      <br>
+                  </div>  
+                        </div>
+                     
+                      </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                     
                 </div>
             </div>
         </div>
          <!-- Recent  P.M  -->
+      <!-- Left side columns -->
+      <div class="col-lg-8">
+        <div class="row">
+          <!-- Recent Sales -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
 
@@ -46,14 +115,12 @@
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
-                    <h6>Management</h6>
+                    <h6>Gestion</h6>
                   </li>
 
-                  <li>
-                    <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#basicModal">
-                    Ajout P.M
-                  </button>
-                </li>
+                  <li> <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#physiquePersonne">
+                    Ajouter client
+                  </button></li>
                   <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
@@ -66,48 +133,26 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Customer</th>
-                      <th scope="col">Product</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Nom</th>
+                      <th scope="col">N° Rccm</th>
+                      <th scope="col">Téléphone</th>
+                      <th scope="col">E-mail</th>
+                      <th scope="col">Specialisation</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for item in listepersonnep %}
                     <tr>
-                      <th scope="row"><a href="#">#2457</a></th>
-                      <td>Brandon Jacob</td>
-                      <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                      <td>$64</td>
-                      <td><span class="badge bg-success">Approved</span></td>
+                      <th scope="row"><a href="#">#{{ forloop.counter }}</a></th>
+                      <td><a href="{% url 'detailpersonneMorale' item.codex%}" class="text-primary">{{item.intitule}}</a></td>
+                      <td>{{item.rccm}}</td>
+                      <td>{{item.telephone}}</td>
+                      <td>{{item.email}}</td>
+                      <td><span class="badge bg-success">{{item.specialisation}}</span></td>
                     </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2147</a></th>
-                      <td>Bridie Kessler</td>
-                      <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                      <td>$47</td>
-                      <td><span class="badge bg-warning">Pending</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2049</a></th>
-                      <td>Ashleigh Langosh</td>
-                      <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                      <td>$147</td>
-                      <td><span class="badge bg-success">Approved</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2644</a></th>
-                      <td>Angus Grady</td>
-                      <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                      <td>$67</td>
-                      <td><span class="badge bg-danger">Rejected</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2644</a></th>
-                      <td>Raheem Lehner</td>
-                      <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                      <td>$165</td>
-                      <td><span class="badge bg-success">Approved</span></td>
-                    </tr>
+                    {% endfor %}
+                    
+                     
                   </tbody>
                 </table>
 
@@ -129,10 +174,10 @@
             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <li class="dropdown-header text-start">
-                <h6>Management</h6>
+                <h6>Filter</h6>
               </li>
 
-              <li><a class="dropdown-item" href="#">Ajout P.M</a></li>
+              <li><a class="dropdown-item" href="#">Today</a></li>
               <li><a class="dropdown-item" href="#">This Month</a></li>
               <li><a class="dropdown-item" href="#">This Year</a></li>
             </ul>
@@ -157,8 +202,8 @@
                 <div class="activity-content">
                   Voluptatem blanditiis blanditiis eveniet
                 </div>
-              </div><!-- End activity item-->
-
+              </div>
+              <!-- End activity item-->
               <div class="activity-item d-flex">
                 <div class="activite-label">2 hrs</div>
                 <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>

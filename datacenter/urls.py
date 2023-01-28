@@ -21,12 +21,13 @@ from django.views.static import serve
 from django.contrib import admin
 from django.urls import path
 from . import views
+from entrepriseApps import views as  views_
 
+
+handler404 = views_.handler404
+handler500 = views_.handler500
 urlpatterns = [
-    path('', views.portal,name="index"),
-    path('paramsList',views.paramettreProduit,name="paramettreProduit"),
-    path('valeurList',views.valeurParamettreProduit,name="valeurparamettreProduit")
-    
+
 ]
 
 # if settings.DEBUG:

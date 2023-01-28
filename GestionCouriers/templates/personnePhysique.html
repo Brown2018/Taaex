@@ -15,7 +15,78 @@
 
   <section class="section dashboard">
     <div class="row">
-
+          <!-- Recent P.M -->
+          <div class="modal fade" id="physiquePersonne" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="card-title">Ajout Personne Morale</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="{% url 'postpersonnePhysique'%}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                              
+                                <div class="col-md-6">
+                                    <input type="text" name="nom" class="form-control" placeholder="Nom">
+                                    <br>
+                                </div>       
+                                <div class="col-md-6">
+                                  <input type="text" name="postnom" class="form-control" placeholder="PostNom">
+                                  <br>
+                              </div>
+                              
+                              <div class="col-md-6">
+                                <input type="text" name="prenom" class="form-control" placeholder="Prenom">
+                                <br>
+                            </div>       
+                            <div class="col-md-6">
+                              <select name="sexe" class="form-select" aria-label="Default select example">
+                                <option selected>Sexe</option>
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                            </select>
+                              <br>
+                          </div>    
+                          <div class="col-md-6">
+                            <input type="numeric" name="age" class="form-control" placeholder="Age">
+                            <br>
+                        </div>       
+                        <div class="col-md-6">
+                          <input type="text" name="specialisation" class="form-control" placeholder="Specialisation">
+                          <br>
+                      </div>
+                      
+                      <div class="col-md-12">
+                        <input type="text" name="adresse" class="form-control" placeholder="Adresse">
+                        <br>
+                    </div>     
+                    <div class="col-md-12">
+                      <input type="text" name="email" class="form-control" placeholder="E-mail">
+                      <br>
+                  </div>    
+                  <div class="col-md-12">
+                    <input type="text" name="tel" class="form-control" placeholder="Téléphone">
+                    <br>
+                </div>    
+                    <div class="col-md-12">
+                      <textarea  style="height: 100px;" name="apropos" class="form-control" placeholder="A propos"></textarea>
+                      <br>
+                  </div> 
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-success">Ajouter</button>
+                      <br>
+                  </div>  
+                        </div>
+                     
+                      </form>
+                    </div>
+                     
+                </div>
+            </div>
+        </div>
+         <!-- Recent  P.M  -->
       <!-- Left side columns -->
       <div class="col-lg-8">
         <div class="row">
@@ -27,10 +98,12 @@
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
+                    <h6>Gestion</h6>
                   </li>
 
-                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li> <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#physiquePersonne">
+                    Ajouter client
+                  </button></li>
                   <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
@@ -43,48 +116,26 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Customer</th>
-                      <th scope="col">Product</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Nom</th>
+                      <th scope="col">Postnom</th>
+                      <th scope="col">Téléphone</th>
+                      <th scope="col">E-mail</th>
+                      <th scope="col">Specialisation</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for item in listepersonnep %}
                     <tr>
-                      <th scope="row"><a href="#">#2457</a></th>
-                      <td>Brandon Jacob</td>
-                      <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                      <td>$64</td>
-                      <td><span class="badge bg-success">Approved</span></td>
+                      <th scope="row"><a href="#">#{{ forloop.counter }}</a></th>
+                      <td><a href="{% url 'detailpersonnePhysique' item.codex%}" class="text-primary">{{item.nom}}</a></td>
+                      <td>{{item.postnom}}</td>
+                      <td>{{item.telephone}}</td>
+                      <td>{{item.email}}</td>
+                      <td><span class="badge bg-success">{{item.specialisation}}</span></td>
                     </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2147</a></th>
-                      <td>Bridie Kessler</td>
-                      <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                      <td>$47</td>
-                      <td><span class="badge bg-warning">Pending</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2049</a></th>
-                      <td>Ashleigh Langosh</td>
-                      <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                      <td>$147</td>
-                      <td><span class="badge bg-success">Approved</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2644</a></th>
-                      <td>Angus Grady</td>
-                      <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                      <td>$67</td>
-                      <td><span class="badge bg-danger">Rejected</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2644</a></th>
-                      <td>Raheem Lehner</td>
-                      <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                      <td>$165</td>
-                      <td><span class="badge bg-success">Approved</span></td>
-                    </tr>
+                    {% endfor %}
+                    
+                     
                   </tbody>
                 </table>
 
