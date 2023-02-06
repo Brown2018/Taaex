@@ -362,13 +362,15 @@ def listeCourrierAffecterMesTaches(request):
     username= dao_user.getUtilisateur(getuser_id) #
     #----------------- / user ---------------------
     try:
-        
+        listeEmployer=dao_employer.listeEmployer(username.entreprise.code,username.entreprise)
         courrier=dao_courrier.toListCourrierAffecterMesAtaches(username.entreprise,username.entreprise.code,getuser_id)
         context = {'title':'Courriers Affecté','entreprise':username.entreprise,
                    'nature':dao_courrier.toListNature(),
                    'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
                    'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
-                   'courrier':courrier
+                   'courrier':courrier,
+                   'listeEmployer':listeEmployer
+                  
         }
         template = loader.get_template('listeCourrierMesTaches.html')
         return HttpResponse(template.render(context, request))
@@ -382,13 +384,14 @@ def listeCourrierTraiterMesTaches(request):
     username= dao_user.getUtilisateur(getuser_id) #
     #----------------- / user ---------------------
     try:
-        
+       
         courrier=dao_courrier.toListeCourrierTraiteMestache(username.entreprise,username.entreprise.code,getuser_id)
         context = {'title':'Courriers Traité','entreprise':username.entreprise,
                    'nature':dao_courrier.toListNature(),
                    'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
                    'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
-                   'courrier':courrier
+                   'courrier':courrier,
+                  
         }
         template = loader.get_template('listeCourrierMesTaches.html')
         return HttpResponse(template.render(context, request))
