@@ -62,6 +62,7 @@
 
 
                         </ul>
+
                         <div class="tab-content pt-2">
 
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -101,47 +102,50 @@
                                     <div class="col-lg-9 col-md-8">{{result.utilisateur.utilisateur.username}} </div>
                                 </div>
                                 <div class="row">
-                        {% comment %} modal 111 {% endcomment %}
-                        <div class="row">
-                            <!-- Recent P.M -->
-                            <div class="modal fade" id="anotation{{ forloop.counter }}" tabindex="-1">
-                              <div class="modal-dialog">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="card-title">Ajout Annotation</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <form id ="annotationagentcourrier" action="{% url 'postAnnotationCloture' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="codex" value="{{result.codex}}" class="form-control">
-  
-                                      <div class="modal-body">
-                                    
-                                        <div class="row mb-3">
-                                          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Votre Annotations</label>
-                                          <div class="col-md-8 col-lg-9">
-                                            <textarea  style="height: 100px;" name="annotation" class="form-control" placeholder="Votre Message"></textarea>
-                                          </div>
+                                    {% comment %} modal 111 {% endcomment %}
+                                    <div class="row">
+                                        <!-- Recent P.M -->
+                                        <div class="modal fade" id="anotation{{ forloop.counter }}" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="card-title">Ajout Annotation</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form id="annotationagentcourrier" action="{% url 'postAnnotationCloture' %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="codex" value="{{result.codex}}" class="form-control">
+
+                                                        <div class="modal-body">
+
+                                                            <div class="row mb-3">
+                                                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Votre Annotations</label>
+                                                                <div class="col-md-8 col-lg-9">
+                                                                    <textarea style="height: 100px;" name="annotation" class="form-control" placeholder="Votre Message"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div>
+                                                                <button type="submit" class="btn btn-primary"> Dossier Traité</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <hr>
-                                        <div >
-                                          <button type="submit" class="btn btn-primary"> Dossier Traité</button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </div>
-                              </div>
-                          </div>
-                          {% comment %} /modale 111 {% endcomment %}
-                          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#anotation{{ forloop.counter }}">
-                            Fermer Dossier
-                          </button>
-  
+                                        {% comment %} /modale 111 {% endcomment %}
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#anotation{{ forloop.counter }}">
+                                            Fermer Dossier
+                                        </button>
+
+                                    </div>
+
+
                                 </div>
-
-
                             </div>
-                            <!-- Destinateur -->
+                        </div>
+                        <!-- Destinateur -->
+                        <div class="tab-content pt-2">
                             <div class="tab-pane fade pt-3" id="Destinateur">
 
 
@@ -178,8 +182,10 @@
 
                                 </div>
                             </div>
-                            <!-- Destinateur -->
-                            {% comment %}Expediteur{% endcomment %}
+                        </div>
+                        <!-- Destinateur -->
+                        {% comment %}Expediteur{% endcomment %}
+                        <div class="tab-content pt-2">
                             <div class="tab-pane fade pt-3" id="expediteur">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 label">
@@ -213,8 +219,9 @@
                                     </div>
                                 </div>
                             </div>
-                            {% comment %} Expediteur {% endcomment %}
-                            
+                        </div>
+                        {% comment %} Expediteur {% endcomment %}
+                        <div class="tab-content pt-2">
                             <div class="tab-pane fade pt-3" id="fichiers">
                                 <div class="pt-2">
                                     <input class="bi bi-upload" type="file" />
@@ -224,40 +231,45 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade pt-3" id="profile-settings">
-                            <!-- Settings Form -->
-                            <hr>
-                            <center><h5>Agent(s) Affecté(s) Au Dossier</h5></center>
-                            <hr>
-                              <div class="row">
-                                <div class="col-lg-12 col-md-12 label">
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade pt-4" id="profile-settings">
+                                <!-- Settings Form -->
+                                <hr>
+                                <center>
+                                    <h5>Agent(s) Affecté(s) Au Dossier</h5>
+                                </center>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 label">
 
-                                    <table class="table table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nom</th>
-                                                <th scope="col">Post-Nom</th>
-                                                 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          {% for item in agents%}
-                                            <tr>
-                                                <th scope="row">#{{ forloop.counter }}</th>
-                                                <td><a href="#"> {{item.agent.nom}}</a></td>
-                                                <td>{{item.agent.postnom}}</td>
-                                            </tr>
-                                            {%endfor%}
-                                        </tbody>
-                                    </table>
-                           
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nom</th>
+                                                    <th scope="col">Post-Nom</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in agents%}
+                                                <tr>
+                                                    <th scope="row">#{{ forloop.counter }}</th>
+                                                    <td><a href="#"> {{item.agent.nom}}</a></td>
+                                                    <td>{{item.agent.postnom}}</td>
+                                                </tr>
+                                                {%endfor%}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
                                 </div>
-
-                            </div>
-                            <hr>
-                            <center><h5> Annotation(s)</h5></center>
-                            <hr>
+                                <hr>
+                                <center>
+                                    <h5> Annotation(s)</h5>
+                                </center>
+                                <hr>
                                 <div class="row mb-3">
                                     <div class="col-lg-12 col-md-12 label">
 
@@ -267,11 +279,11 @@
                                                     <th scope="col">#</th>
                                                     <th scope="col">Source</th>
                                                     <th scope="col">Annotation</th>
-                                                     
+
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                              {% for item in result.mes_annotation.all%}
+                                                {% for item in result.mes_annotation.all%}
                                                 <tr>
                                                     <th scope="row">#{{ forloop.counter }}</th>
                                                     <td><a href="#"> {{item.employer.nom}}</a></td>
@@ -280,25 +292,20 @@
                                                 {%endfor%}
                                             </tbody>
                                         </table>
-                               
+
                                     </div>
                                 </div>
- 
-                      
-                            <!-- End settings Form -->
 
+
+                                <!-- End settings Form -->
+
+                            </div>
                         </div>
-
-
-                        <!-- End Bordered Tabs -->
-
-
                     </div>
-
                 </div>
-
             </div>
         </div>
+
     </section>
 
 
