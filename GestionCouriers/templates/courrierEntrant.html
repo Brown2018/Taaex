@@ -15,45 +15,128 @@
 
   <section class="section dashboard">
     <div class="row">
-
-      <!-- Left side columns -->
-      <div class="col-lg-8">
-        <div class="row">
           <!-- Recent P.M -->
-          <div class="modal fade" id="courrier" tabindex="-1">
+          <div class="modal fade" id="physiquePersonne" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="card-title">Ajouter Courrier Entrant</h5>
+                        <h5 class="card-title">Ajout courrier</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form action="" method="POST">
+                      <form action="{% url 'postcourrierEntrant'%}" method="POST">
                         {% csrf_token %}
                         <div class="row">
-                          {% for field in courrier %}
+                              
+                                <div class="col-md-6">
+                                    <input type="text" name="libele" class="form-control" placeholder="Libele">
+                                    <br>
+                                </div>       
+                                <div class="col-md-6">
+                                  <input type="text" name="concerne" class="form-control" placeholder="Concerne">
+                                  <br>
+                              </div>
+                              
+                              <div class="col-md-6">
+                                <input type="text" name="reference" class="form-control" placeholder="N° Reference">
+                                <br>
+                            </div>       
+                            <div class="col-md-6">
+                              <select name="typecourrir" class="form-select" aria-label="Default select example">
+                                <option selected>Type Courrier</option>
+                                {% for item in typecourrir%}
+                                <option value="{{item.id}}">{{item.typecourrir}}</option>
+                                {%endfor%}
+                            </select>
+                              <br>
+                          </div>    
                           <div class="col-md-6">
-                            
-                              {{ field.label_tag }} {{ field }}
-                              {{ field.errors }}
-                          </div>
-                         {% endfor %}
-                         
+                            <select name="nature" class="form-select" aria-label="Default select example">
+                              <option value="" selected>Nature Courrier</option>
+                              {% for item in nature%}
+                              <option value="{{item.id}}">{{item.nature}}</option>
+                              {%endfor%}
+                          </select>
+                            <br>
+                        </div> 
+                        <hr>
+                        <h6>Destinataire</h6>
+                        <hr>
+                        <div class="col-md-6">
+                          <select name="client_m" class="form-select" aria-label="Default select example">
+                            <option value="" selected>Personne Moral</option>
+                          {%for item in client_moral%}
+                            <option value="{{item.id}}">{{item.intitule}}</option>
+                            {%endfor%}
+                        </select>
+                          <br>
+                      </div> 
+                          <div class="col-md-6">
+                            <select name="client_p" class="form-select" aria-label="Default select example">
+                              <option value="" selected>Personne Physique</option>
+                              {%for item in client_physique%}
+                              <option value="{{item.id}}">{{item.nom}} {{item.postnom}} {{item.prenom}}</option>
+                              {%endfor%}
+                          </select>
+                            <br>
+                        </div> 
+                        <div class="col-md-6">
+                          <input type="text" name="client_intitule" class="form-control" placeholder="S° Autre Provenance">
+                           <br>
+                      </div> 
+                      <hr>
+ 
+                  {% comment %} destinataire {% endcomment %}
+                  <hr>
+                  <h6>Expediteur</h6>
+                  <hr>
+                  <div class="col-md-6">
+                    <select name="client_m_exp" class="form-select" aria-label="Default select example">
+                      <option value="" selected>Personne Moral</option>
+                    {%for item in client_moral%}
+                      <option value="{{item.id}}">{{item.intitule}}</option>
+                      {%endfor%}
+                  </select>
+                    <br>
+                </div> 
+                    <div class="col-md-6">
+                      <select name="client_p_exp" class="form-select" aria-label="Default select example">
+                        <option value="" selected>Personne Physique</option>
+                        {%for item in client_physique%}
+                        <option value="{{item.id}}">{{item.nom}} {{item.postnom}} {{item.prenom}}</option>
+                        {%endfor%}
+                    </select>
+                      <br>
+                  </div> 
+                  <div class="col-md-6">
+                    <input type="text" name="client_intitule_ex" class="form-control" placeholder="S° Autre Expediteur">
+                     <br>
+                </div> 
+                <hr>
+
+                {% comment %} destinateur {% endcomment %}
+                <div class="col-md-12">
+                  <textarea  style="height: 100px;" name="decision" class="form-control" placeholder="Commentaire"></textarea>
+                  <br>
+              </div> 
+
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-success">Ajouter</button>
+                      <br>
+                  </div>  
                         </div>
-                        <br><br>
-                         
-                        <button type="submit" class="btn btn-success">Ajouter</button>
-                
+                     
                       </form>
                     </div>
-                    <div class="modal-footer">
-                        
-                        
-                    </div>
+                     
                 </div>
             </div>
         </div>
          <!-- Recent  P.M  -->
+      <!-- Left side columns -->
+      <div class="col-lg-8">
+        <div class="row">
+          <!-- Recent Sales -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
 
@@ -61,15 +144,16 @@
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
-                    <h6>Management</h6>
+                    <h6>Gestion</h6>
                   </li>
 
+                  <li> <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#physiquePersonne">
+                   Nouvel Enregistrement
+                  </button></li>
                   <li>
-                    <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#courrier">
-                    Ajout P.M
-                  </button>
-                </li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
+
+                     
+                  </li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
@@ -81,48 +165,65 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Customer</th>
-                      <th scope="col">Product</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Date Arriver</th>
+                      <th scope="col">Libele</th>
+                      <th scope="col">N° Reference</th>
+                      <th scope="col">Anotation</th>
+                      <th scope="col">Nature</th>
+                      <th scope="col">Affectation</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for item in courrier %}
                     <tr>
-                      <th scope="row"><a href="#">#2457</a></th>
-                      <td>Brandon Jacob</td>
-                      <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                      <td>$64</td>
-                      <td><span class="badge bg-success">Approved</span></td>
+                      <th scope="row"><a href="#">#{{ forloop.counter }}</th>
+                      <td>{{item.Date_arriver}}</a></td>
+                      <td><a href="{% url 'detailCourrier' item.codex %}" class="text-primary">{{item.libele}}</a></td>
+                      <td>{{item.reference}}</td>
+                      <td>{{item.anotation}}</td>
+                      <td><span class="badge bg-success">{{item.nature}}</span></td>
+                      <td>
+                                                      {% comment %} modal 111 {% endcomment %}
+                                                      <div class="row">
+                                                        <!-- Recent P.M -->
+                                                        <div class="modal fade" id="affecteragent{{ forloop.counter }}" tabindex="-1">
+                                                          <div class="modal-dialog">
+                                                              <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                      <h5 class="card-title">Affectation Tâche</h5>
+                                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                  </div>
+                                                                  <div class="modal-body">
+                                                                    <form id ="affectationagentcourrier" action="{% url 'postAffectationCourrier' %}" method="POST">
+                                                                      {% csrf_token %}
+                                                                     
+                                                                                    <input type="hidden" name="courrier" value="{{item.id}}" class="form-control">
+                                                                                    <input type="hidden" name="codex" value="{{item.codex}}" class="form-control">
+                                                                          
+                                                                                    <select name="agent" class="form-select" aria-label="Default select example">
+                                                                                      <option selected>Travaileur</option>
+                                                                                      {% for item in listeEmployer%}
+                                                                                      <option value="{{item.id}}">{{item.nom}} {{item.postnom}} {{item.prenom}}</option>
+                                                                                      {%endfor%}
+                                                                                  </select>
+                                                                                  
+                                                                                  <button type="submit" class="btn btn-primary">Ajouter</button> 
+                                                                    </form>
+                                                                  </div>
+                                                                   
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      {% comment %} /modale 111 {% endcomment %}
+                                                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#affecteragent{{ forloop.counter }}">
+                                                        Affecter
+                                                      </button>
+                      
+                      </td>
                     </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2147</a></th>
-                      <td>Bridie Kessler</td>
-                      <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                      <td>$47</td>
-                      <td><span class="badge bg-warning">Pending</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2049</a></th>
-                      <td>Ashleigh Langosh</td>
-                      <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                      <td>$147</td>
-                      <td><span class="badge bg-success">Approved</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2644</a></th>
-                      <td>Angus Grady</td>
-                      <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                      <td>$67</td>
-                      <td><span class="badge bg-danger">Rejected</span></td>
-                    </tr>
-                    <tr>
-                      <th scope="row"><a href="#">#2644</a></th>
-                      <td>Raheem Lehner</td>
-                      <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                      <td>$165</td>
-                      <td><span class="badge bg-success">Approved</span></td>
-                    </tr>
+                    {% endfor %}
+                    
+                     
                   </tbody>
                 </table>
 
@@ -144,10 +245,10 @@
             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <li class="dropdown-header text-start">
-                <h6>Management</h6>
+                <h6>Filter</h6>
               </li>
 
-              <li><a class="dropdown-item" href="#">Ajout P.M</a></li>
+              <li><a class="dropdown-item" href="#">Today</a></li>
               <li><a class="dropdown-item" href="#">This Month</a></li>
               <li><a class="dropdown-item" href="#">This Year</a></li>
             </ul>
@@ -172,8 +273,8 @@
                 <div class="activity-content">
                   Voluptatem blanditiis blanditiis eveniet
                 </div>
-              </div><!-- End activity item-->
-
+              </div>
+              <!-- End activity item-->
               <div class="activity-item d-flex">
                 <div class="activite-label">2 hrs</div>
                 <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>

@@ -27,6 +27,7 @@ urlpatterns = [
    
     path('', include('security.urls')),
     path('dashboard/', include('GestionCouriers.urls')),
+    path('resourcehumain/', include('ResourceHumaines.urls')),
     path('admin/', admin.site.urls),
      
     

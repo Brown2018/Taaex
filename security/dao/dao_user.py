@@ -43,7 +43,7 @@ class dao_user(object):
             print("PROBLEME DE CREATION D'UTILISATEUR AVEC CETTE IDENTIFIANT  Backend(dao_menu(getUtilisateur)) err=",e)
     
     @staticmethod
-    def creationVendeur(user,userMaster,sexe,pays,adresse,tel,shop):
+    def creationEmployer(user,userMaster,sexe,pays,adresse,tel,shop):
         try:
             vendre=Model_vendre()
             utilisateurUser = Model_Utilisateur()
@@ -57,10 +57,7 @@ class dao_user(object):
                     
             utilisateurUser.save()
             # Vendre 
-            vendre.shop_id=shop
-            vendre.master=userMaster
-            vendre.vendeur_id=utilisateurUser.id
-            vendre.save()
+
             
         except Exception as e:
             print("PROBLEME DE CREATION D'UTILISATEUR AVEC CETTE IDENTIFIANT  Backend(dao_menu(creationVendeur)) err=",e)

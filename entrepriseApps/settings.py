@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'security',
     'GestionCouriers',
-    'datacenter'
+    'datacenter',
+    'ResourceHumaines'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,23 @@ STATICFILES_DIRS=(
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
+
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='tklogiciel@gmail.com'
+EMAIL_HOST_PASSWORD='futejbibgvskbeby'
+EMAIL_PORT=465
+#HOST="http://localhost:8000"
+#HOST="https://afternoon-citadel-41581.herokuapp.com/"
+# HOST="http://107.22.112.64/"
+# HOST_MEDIA="https://tklogiciel001.s3-us-west-1.amazonaws.com/"
+HOST="http://www.tklogiciel.com/"
+HOST_MEDIA="http://tklogiciel.com/"
+
+INTERNAL_IPS = [
+    # ...
+    #'127.0.0.1',
+    # ...
+]
+

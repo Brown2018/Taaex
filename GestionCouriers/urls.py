@@ -35,7 +35,10 @@ urlpatterns = [
     path('postpersonneMorale',views.postpersonneMorale,name="postpersonneMorale"),
     path('postpersonnePhysique',views.postpersonnePhysique,name="postpersonnePhysique"),
     path('postpersonneMorale',views.postpersonneMorale,name="postpersonneMorale"),
+    path('postcourrierEntrant',views.postcourrierEntrant,name="postcourrierEntrant"),
+      path('postAffectationCourrier',views.postAffectationCourrier,name="postAffectationCourrier"),
     re_path(r'^detailperso/(?P<codex>\w+)/$', views.detailpersonnePhysique,name="detailpersonnePhysique"),
-    re_path(r'^detailpersmoral/(?P<codex>\w+)/$', views.detailpersonneMorale,name="detailpersonneMorale")
+    re_path(r'^detailpersmoral/(?P<codex>\w+)/$', views.detailpersonneMorale,name="detailpersonneMorale"),
+    re_path(r'^detailCourrier/(?P<codex>\w+)/$', views.detailCourrier,name="detailCourrier"),
     
 ]#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

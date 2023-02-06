@@ -17,6 +17,8 @@ from django.urls import reverse
 
 from GestionCouriers.dao.dao_personnePysique import dao_personnePysique
 from GestionCouriers.dao.dao_personneMorale import dao_personneMorale
+from GestionCouriers.dao.dao_courrier import dao_courrier
+from ResourceHumaines.dao.dao_employer import dao_employer
 from datetime import datetime, date, timedelta, time
 #------------ Time ------------------------
 #import datetime
@@ -67,8 +69,6 @@ def personneMorale(request):
         return HttpResponse(template.render(context, request))
     except Exception as e:
         return printErrorFormat.printError("Views","personneMorale",e,request,"errors/error.html")
-
-
 
 @login_required(login_url='login_view')
 def postpersonneMorale(request):
@@ -213,13 +213,89 @@ def courrierEntrant(request):
     username= dao_user.getUtilisateur(getuser_id) #
     #----------------- / user ---------------------
     try:
+        listeEmployer=dao_employer.listeEmployer(username.entreprise.code,username.entreprise)
         context = {'title':'Courriers entrants',
-                   'entreprise':username.entreprise
+                   'entreprise':username.entreprise,
+                   'typecourrir':dao_courrier.toListypecourrier(),
+                   'nature':dao_courrier.toListNature(),
+                   'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
+                   'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
+                   'courrier':dao_courrier.toListCourrier(username.entreprise,username.entreprise.code),
+                    'listeEmployer':listeEmployer
+
         }
         template = loader.get_template('courrierEntrant.html')
         return HttpResponse(template.render(context, request))
     except Exception as e:
         return printErrorFormat.printError("Views","personneMorale",e,request,"errors/error.html")
+
+@login_required(login_url='login_view')
+def postcourrierEntrant(request):
+    #-----------------  user ----------------------
+    getuser_id=request.user.id                    #
+    username= dao_user.getUtilisateur(getuser_id) #
+    #----------------- / user ---------------------
+    try:
+        #-----------------  user ----------------------
+        getuser_id=request.user.id                    #
+        username= dao_user.getUtilisateur(getuser_id) #
+        #----------------- / user ---------------------
+        if request.method == 'POST':
+            libele=request.POST['libele']    
+            concerne=request.POST['concerne'] 
+            reference=request.POST['reference'] 
+            typecourrir=request.POST['typecourrir'] 
+            nature=request.POST['nature'] 
+
+            code_ent=username.entreprise.code
+            entreprise=username.entreprise
+            utilisateur=username
+           
+            client_m=request.POST['client_m'] 
+            client_p=request.POST['client_p'] 
+            client_intitule=request.POST['client_intitule'] 
+
+            decision=request.POST['decision'] 
+            anotation=""
+
+            client_p_exp=request.POST['client_p_exp'] 
+            client_m_exp=request.POST['client_m_exp'] 
+            client_intitule_exp=request.POST['client_intitule_ex'] 
+
+            dao_courrier.toSave_or_exists( libele ,concerne,reference,typecourrir, 
+            nature, 
+            code_ent, 
+            entreprise, 
+            utilisateur, 
+            client_m, 
+            client_p,client_intitule,decision,anotation,client_p_exp,client_m_exp,client_intitule_exp)            
+
+        return HttpResponseRedirect(reverse("courrierEntrant"))
+    except Exception as e:
+        print('##### ere',e)
+        return printErrorFormat.printError("Views","personnePhysique",e,request,"errors/error.html")
+
+
+@login_required(login_url='login_view')
+def detailCourrier(request,codex):
+    #-----------------  user ----------------------
+    getuser_id=request.user.id                    #
+    username= dao_user.getUtilisateur(getuser_id) #
+    #----------------- / user ---------------------
+    try:
+        result=dao_courrier.toGetCourrier(codex,username.entreprise)
+        agents=dao_courrier.toListCourrierAffecte(username.entreprise,username.entreprise.code,result.id)
+        print('#### ',agents)
+        context = {'title':'Détail Courier','entreprise':username.entreprise,'result':result,
+                    'agents':agents
+        
+        }
+        template = loader.get_template('details/detailsCourrrier.html')
+        return HttpResponse(template.render(context, request))
+    except Exception as e:
+        print("###### ### ",e)
+        return printErrorFormat.printError("Views","detailpersonnePhysique",e,request,"errors/error.html")
+
 
 @login_required(login_url='login_view')
 def courrierSortant(request):
@@ -228,7 +304,13 @@ def courrierSortant(request):
     username= dao_user.getUtilisateur(getuser_id) #
     #----------------- / user ---------------------
     try:
-        context = {'title':'Courriers entrants','entreprise':username.entreprise}
+        context = {'title':'Courriers Sortants','entreprise':username.entreprise,
+                   'typecourrir':dao_courrier.toListypecourrier(),
+                   'nature':dao_courrier.toListNature(),
+                   'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
+                   'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
+                   'courrier':dao_courrier.toListCourrierSortant(username.entreprise,username.entreprise.code)
+        }
         template = loader.get_template('courrierSortant.html')
         return HttpResponse(template.render(context, request))
     except Exception as e:
@@ -242,8 +324,52 @@ def listeCourrier(request):
     username= dao_user.getUtilisateur(getuser_id) #
     #----------------- / user ---------------------
     try:
-        context = {'title':'Courriers entrants','entreprise':username.entreprise}
+        context = {'title':'Courriers Classé','entreprise':username.entreprise,
+                   'nature':dao_courrier.toListNature(),
+                   'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
+                   'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
+                   'courrier':dao_courrier.toListCourrierTraiter(username.entreprise,username.entreprise.code)
+        }
         template = loader.get_template('listeCourrier.html')
         return HttpResponse(template.render(context, request))
     except Exception as e:
         return printErrorFormat.printError("Views","personneMorale",e,request,"errors/error.html")
+
+@login_required(login_url='login_view')
+def detailpersonnePhysique(request,codex):
+    #-----------------  user ----------------------
+    getuser_id=request.user.id                    #
+    username= dao_user.getUtilisateur(getuser_id) #
+    #----------------- / user ---------------------
+    try:
+        result=dao_personnePysique.toGetPersonnePhysique(codex,username.entreprise)
+        context = {'title':'Détail Personne Physique','entreprise':username.entreprise,'result':result }
+        template = loader.get_template('details/detailsPersonneP.html')
+        return HttpResponse(template.render(context, request))
+    except Exception as e:
+        print("###### ### ",e)
+        return printErrorFormat.printError("Views","detailpersonnePhysique",e,request,"errors/error.html")
+
+@login_required(login_url='login_view')
+def postAffectationCourrier(request):
+    print("### Moi")
+
+    try:
+        #-----------------  user ----------------------
+        getuser_id=request.user.id                    #
+        username= dao_user.getUtilisateur(getuser_id) #
+        #----------------- / user ---------------------
+        if request.method == 'POST':
+            courrier=request.POST['courrier']    
+            agent=request.POST['agent']
+            codex=request.POST['codex']
+            print("### ",codex)
+ 
+            entreprise=username.entreprise
+            code_ent=username.entreprise.code
+
+            dao_courrier.toAffecterAgent( courrier,agent,entreprise,code_ent)            
+
+        return HttpResponseRedirect(reverse("detailCourrier",args=(codex,)))
+    except Exception as e:
+        return printErrorFormat.printError("Views","personnePhysique",e,request,"errors/error.html")

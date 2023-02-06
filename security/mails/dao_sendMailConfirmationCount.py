@@ -5,6 +5,72 @@ from email.message import EmailMessage
 
 class dao_sendMailConfirmationCount(object):
     @staticmethod
+    def sendMailCoordonnes(username,password,entreprise,to='kandealex007@gmail.com'):
+        try:
+            EMAIL_ADRESS=settings.EMAIL_HOST_USER
+            
+            EMAIL_PASSWORD=settings.EMAIL_HOST_PASSWORD
+            EMAIL_HOST=settings.EMAIL_HOST
+            EMAIL_POSRT=settings.EMAIL_PORT
+            HOST=settings.HOST
+            msg=EmailMessage()
+
+            msg['Subject']='CONFIRMATION CLIENT\'S ACCOUNT'
+            msg['From']=EMAIL_ADRESS
+            msg['To']=to
+
+            msg.set_content('This helps you to confirme your account by clicking in this link bellow !')
+            msg.add_alternative("""\
+
+          <!DOCTYPE html>
+            <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+                <title>Mail</title>
+            </head>
+            
+            <body>
+                
+                <header style="border 1 solide">
+                    <img class="fluid" src="https://tkngomedia.s3.eu-west-3.amazonaws.com/static/Mail.png" alt="">
+                </header>
+            
+             <main>
+        <h1 class="title is-size-2 has-text-centered">"""+entreprise+"""</h1>   
+
+             
+            <div class="row">
+        
+        <center>
+                <p > 
+                        User :'"""+username+"""'
+                        Password :'"""+password+"""'
+                </p>
+        </center>
+        </div>
+    </main>
+
+            </body>
+            </html>
+
+
+                """,subtype='html')
+      
+
+            with smtplib.SMTP_SSL(str(EMAIL_HOST),EMAIL_POSRT) as smtp:
+                smtp.login(EMAIL_ADRESS,EMAIL_PASSWORD)
+                smtp.ehlo()
+                smtp.send_message(msg)
+
+            return 1
+        except Exception as e:
+            return 0
+
+    @staticmethod
     def sendMaimConfCount(id,to='kandealex007@gmail.com'):
         try:
             EMAIL_ADRESS=settings.EMAIL_HOST_USER

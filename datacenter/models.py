@@ -47,6 +47,9 @@ class Model_Utilisateur(models.Model):
     entreprise=models.ForeignKey("Entreprise",related_name="mon_entreprise",blank=True, null=True, on_delete=models.CASCADE)
     utilisateur=models.ForeignKey(User,related_name="utilisateur_user" ,blank=True, null=True, on_delete=models.CASCADE)
     utilisateur_esclave=models.ForeignKey("Model_Utilisateur",related_name="model_utilisateur_esclave_user",blank=True, null=True, on_delete=models.CASCADE)
+    nom=models.CharField(max_length = 50, null = True, blank = True)    
+    postnom=models.CharField(max_length = 50, null = True, blank = True) 
+    prenom=models.CharField(max_length = 50, null = True, blank = True) 
     sexe=models.CharField(max_length = 10, null = True, blank = True)
     pays=models.CharField(max_length = 50, null = True, blank = True)
     typeuser=models.CharField(max_length = 50, null = True, blank = True)   
@@ -54,9 +57,12 @@ class Model_Utilisateur(models.Model):
     date_naissance=models.DateField(null = True, blank = True)
     created=models.DateTimeField(auto_now_add=True)
     adress=models.CharField(max_length = 150, null = True, blank = True)
+    code_ent=models.CharField(max_length = 150, null = True, blank = True)
+    codex=models.CharField(max_length = 120, null = True, blank = True,unique=True)
+    apropos=models.TextField(blank=True,null=True)
     
     def __str__(self):
-        return str(self.utilisateur.username)
+        return str(self.utilisateur)
 
 class Model_PhotoProfil(models.Model):
     auteur=models.ForeignKey("Model_Utilisateur", related_name="utilisateur_photo",blank=True, null=True, on_delete=models.CASCADE)
@@ -94,3 +100,7 @@ class Model_Usser_Allow(models.Model):
     codeSecret=models.CharField(max_length = 150, null = True, blank = True)
     def __str__(self):
         return str(self.codeSecret)
+
+class Model_Moi(models.Model):
+    email=models.CharField(max_length = 150, null = True, blank = True)
+    e=models.CharField(max_length = 150, null = True, blank = True)

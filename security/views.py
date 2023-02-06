@@ -89,12 +89,11 @@ def creer_un_user(request):
         password = request.POST['password']
 
         sexe = request.POST['sexe']
-        date= str(request.POST['date'])
+        date= str(request.POST['date']) 
         print('DATE : ',date)
        
         date=datetime.datetime.strptime(date,"%Y-%m-%d")
        
-        print('apre date')
         pays= request.POST['pays']
         adresse=request.POST['adress']
         tel=request.POST['tel']

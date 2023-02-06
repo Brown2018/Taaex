@@ -44,9 +44,10 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="#" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">{{entreprise}}</span>
+        <span class="d-none d-lg-block">{{entreprise}}</span> 
+       
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -321,6 +322,44 @@
           </li>
         </ul>
       </li><!-- End Tables Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#resource-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Resource Humaines</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="resource-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <li>
+            <a href="{% url 'personnePhysique'%}">
+              <i class="bi bi-circle"></i><span>Tâches Encours</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'personnePhysique'%}">
+              <i class="bi bi-circle"></i><span>Tâches Planifiées</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'personnePhysique'%}">
+              <i class="bi bi-circle"></i><span>Tâches Finis</span>
+            </a> 
+          </li>
+          <li>
+            <a href="{% url 'listedepersonnels'%}">
+              <i class="bi bi-circle"></i><span>Liste des Personnels</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'listedefonction'%}">
+              <i class="bi bi-circle"></i><span>Liste Fonctions</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'listedeposte'%}">
+              <i class="bi bi-circle"></i><span>Liste Poste</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
@@ -358,6 +397,7 @@
   <footer id="footer" class="footer">
     <div class="copyright">
       &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+      <p class="d-none d-lg-block"> {% now "jS F Y H:i" %}</p>
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
@@ -378,7 +418,7 @@
   <script src="{% static 'assets/vendor/quill/quill.min.js'%}"></script>
   <script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js'%}"></script>
   <script src="{% static 'assets/vendor/tinymce/tinymce.min.js'%}"></script>
-  <script src="{% static 'assets/vendor/php-email-form/validate.js'%}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js'%}"></script> 
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js'%}"></script>
