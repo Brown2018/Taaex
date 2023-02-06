@@ -134,7 +134,7 @@
         </div>
          <!-- Recent  P.M  -->
       <!-- Left side columns -->
-      <div class="col-lg-8">
+      <div class="col-lg-9">
         <div class="row">
           <!-- Recent Sales -->
           <div class="col-12">
@@ -171,6 +171,7 @@
                       <th scope="col">Anotation</th>
                       <th scope="col">Nature</th>
                       <th scope="col">Affectation</th>
+                      <th scope="col">Anotation</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -206,7 +207,7 @@
                                                                                       <option value="{{item.id}}">{{item.nom}} {{item.postnom}} {{item.prenom}}</option>
                                                                                       {%endfor%}
                                                                                   </select>
-                                                                                  
+                                                                                  <hr>
                                                                                   <button type="submit" class="btn btn-primary">Ajouter</button> 
                                                                     </form>
                                                                   </div>
@@ -220,6 +221,42 @@
                                                       </button>
                       
                       </td>
+                      <td>
+                        {% comment %} modal 111 {% endcomment %}
+                        <div class="row">
+                          <!-- Recent P.M -->
+                          <div class="modal fade" id="anotation{{ forloop.counter }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="card-title">A Notation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form id ="annotationagentcourrier" action="{% url 'postAffectationCourrier' %}" method="POST">
+                                      {% csrf_token %}
+                                    <div class="modal-body">
+                                  
+                                      <div class="row mb-3">
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Votre Anotations</label>
+                                        <div class="col-md-8 col-lg-9">
+                                          <textarea  style="height: 100px;" nam="apropos" class="form-control" placeholder="Votre Message"></textarea>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div >
+                                        <button type="submit" class="btn btn-primary">Noter</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} /modale 111 {% endcomment %}
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#anotation{{ forloop.counter }}">
+                          Anotation
+                        </button>
+
+</td>
                     </tr>
                     {% endfor %}
                     
@@ -237,7 +274,7 @@
       </div><!-- End Left side columns -->
 
       <!-- Right side columns -->
-      <div class="col-lg-4">
+      <div class="col-lg-3">
 
         <!-- Recent Activity -->
         <div class="card">

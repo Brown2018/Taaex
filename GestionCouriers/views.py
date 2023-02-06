@@ -352,8 +352,7 @@ def detailpersonnePhysique(request,codex):
 
 @login_required(login_url='login_view')
 def postAffectationCourrier(request):
-    print("### Moi")
-
+    
     try:
         #-----------------  user ----------------------
         getuser_id=request.user.id                    #
@@ -363,8 +362,7 @@ def postAffectationCourrier(request):
             courrier=request.POST['courrier']    
             agent=request.POST['agent']
             codex=request.POST['codex']
-            print("### ",codex)
- 
+       
             entreprise=username.entreprise
             code_ent=username.entreprise.code
 
