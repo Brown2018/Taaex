@@ -1,13 +1,32 @@
 # -*- coding: utf-8 -*-
 from datacenter.models import Model_Utilisateur
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django.db.models import Q
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 import datetime
 
 class dao_user(object):
+    def addUserInGroup(groupName,userId):
+        group = Group(name = groupName)
+        group.save()                    # save this new group for this example
+        user = User.objects.get(pk = userId) # assuming, there is one initial user 
+        user.groups.add(group) 
+
+    def is_allowed(user,permission):
+        try:
+            liste=[]
+            liste.append(permission)
+            allowed_group = set(liste)
+            usr = User.objects.get(username=user)
+            print("## ",user)
+            groups = [ x.name for x in usr.groups.all()]
+            if allowed_group.intersection(set(groups)):
+                return True
+            return False
+        except Exception as e:
+            print("is_allowed err=",e)
 
     @staticmethod
     def getUtilisateur(id):

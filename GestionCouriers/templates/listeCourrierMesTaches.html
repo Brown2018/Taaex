@@ -20,7 +20,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="card-title">Ajout courrier</h5>
+                        <h5 class="card-title">Ajout Courrier</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -134,7 +134,7 @@
         </div>
          <!-- Recent  P.M  -->
       <!-- Left side columns -->
-      <div class="col-lg-9">
+      <div class="col-lg-8">
         <div class="row">
           <!-- Recent Sales -->
           <div class="col-12">
@@ -150,10 +150,7 @@
                   <li> <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#physiquePersonne">
                    Nouvel Enregistrement
                   </button></li>
-                  <li>
-
-                     
-                  </li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
@@ -170,12 +167,11 @@
                       <th scope="col">N° Reference</th>
                       <th scope="col">Anotation</th>
                       <th scope="col">Nature</th>
-                      <th scope="col">Affectation</th>
-                      <th scope="col">Anotation</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for item in courrier %}
+                    {% for items in courrier %}
+                    {% for item in items %}
                     <tr>
                       <th scope="row"><a href="#">#{{ forloop.counter }}</th>
                       <td>{{item.Date_arriver}}</a></td>
@@ -183,85 +179,9 @@
                       <td>{{item.reference}}</td>
                       <td>{{item.anotation}}</td>
                       <td><span class="badge bg-success">{{item.nature}}</span></td>
-                      <td>
-                                                      {% comment %} modal 111 {% endcomment %}
-                                                      <div class="row">
-                                                        <!-- Recent P.M -->
-                                                        <div class="modal fade" id="affecteragent{{ forloop.counter }}" tabindex="-1">
-                                                          <div class="modal-dialog">
-                                                              <div class="modal-content">
-                                                                  <div class="modal-header">
-                                                                      <h5 class="card-title">Affectation Tâche</h5>
-                                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                  </div>
-                                                                  <div class="modal-body">
-                                                                    <form id ="affectationagentcourrier" action="{% url 'postAffectationCourrier' %}" method="POST">
-                                                                      {% csrf_token %}
-                                                                     
-                                                                                    <input type="hidden" name="courrier" value="{{item.id}}" class="form-control">
-                                                                                    <input type="hidden" name="codex" value="{{item.codex}}" class="form-control">
-                                                                          
-                                                                                    <select name="agent" class="form-select" aria-label="Default select example">
-                                                                                      <option selected>Travaileur</option>
-                                                                                      {% for item in listeEmployer%}
-                                                                                      <option value="{{item.id}}">{{item.nom}} {{item.postnom}} {{item.prenom}}</option>
-                                                                                      {%endfor%}
-                                                                                  </select>
-                                                                                  <hr>
-                                                                                  <button type="submit" class="btn btn-primary">Ajouter</button> 
-                                                                    </form>
-                                                                  </div>
-                                                                   
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                      {% comment %} /modale 111 {% endcomment %}
-                                                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#affecteragent{{ forloop.counter }}">
-                                                        Affecter
-                                                      </button>
-                      
-                      </td>
-                      <td>
-                        {% comment %} modal 111 {% endcomment %}
-                        <div class="row">
-                          <!-- Recent P.M -->
-                          <div class="modal fade" id="anotation{{ forloop.counter }}" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="card-title">Ajout Annotation</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <form id ="annotationagentcourrier" action="{% url 'postAnnotation' %}" method="POST">
-                                      {% csrf_token %}
-                                      <input type="hidden" name="codex" value="{{item.codex}}" class="form-control">
-
-                                    <div class="modal-body">
-                                  
-                                      <div class="row mb-3">
-                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Votre Annotations</label>
-                                        <div class="col-md-8 col-lg-9">
-                                          <textarea  style="height: 100px;" name="annotation" class="form-control" placeholder="Votre Message"></textarea>
-                                        </div>
-                                      </div>
-                                      <hr>
-                                      <div >
-                                        <button type="submit" class="btn btn-primary">Noter</button>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
-                            </div>
-                        </div>
-                        {% comment %} /modale 111 {% endcomment %}
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#anotation{{ forloop.counter }}">
-                          Anotation
-                        </button>
-
-                      </td>
                     </tr>
                     {% endfor %}
-                    
+                    {% endfor %}
                      
                   </tbody>
                 </table>
@@ -276,7 +196,7 @@
       </div><!-- End Left side columns -->
 
       <!-- Right side columns -->
-      <div class="col-lg-3">
+      <div class="col-lg-4">
 
         <!-- Recent Activity -->
         <div class="card">

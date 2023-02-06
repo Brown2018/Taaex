@@ -66,10 +66,10 @@ class Model_courrier(models.Model):
     codex=models.CharField(max_length = 120, null = True, blank = True,unique=True)
     libele=models.CharField(max_length = 50, null = True, blank = True) 
     Date_arriver=models.DateField(auto_now_add=True)
+    Date_traitement=models.DateField(auto_now=True, null = True, blank = True)
     decision=models.TextField( null = True, blank = True) #Commentaire
     concerne=models.CharField(max_length = 150, null = True, blank = True) 
     reference=models.CharField(max_length = 150, null = True, blank = True)
-    anotation=models.TextField(null = True, blank = True)# tab
     typecourrir=models.ForeignKey("Model_TypeCourrier", blank=True, null=True, on_delete=models.CASCADE)
 
     nature=models.ForeignKey("Model_NatureCourrier", blank=True, null=True, on_delete=models.CASCADE)
@@ -89,7 +89,17 @@ class Model_courrier(models.Model):
 
     def __str__(self) -> str:
         return self.libele
-        
+class Model_Annotation(models.Model):
+    courrier=models.ForeignKey("Model_courrier",related_name="mes_annotation", blank=True, null=True, on_delete=models.CASCADE)# tab
+    code_ent=models.CharField(max_length = 150, null = True, blank = True)
+    entreprise=models.ForeignKey(Entreprise,related_name="mes_courriers",blank=True, null=True, on_delete=models.CASCADE)
+    created=models.DateTimeField(auto_now_add=True)
+    annotation=models.TextField(blank=True,null=True)
+    employer=models.ForeignKey(Model_Utilisateur,related_name="mes_annitations",blank=True, null=True, on_delete=models.CASCADE)
+    codex=models.CharField(max_length = 120, null = True, blank = True,unique=True)
+    def __str__(self):
+        return str(self.annotation)
+  
 class Model_AgentAffecterCourrier(models.Model):
     code_ent=models.CharField(max_length = 150, null = True, blank = True)
     entreprise=models.ForeignKey(Entreprise,related_name="affectercourrier_entreprise",blank=True, null=True, on_delete=models.CASCADE)

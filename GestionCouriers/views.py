@@ -256,7 +256,7 @@ def postcourrierEntrant(request):
             client_intitule=request.POST['client_intitule'] 
 
             decision=request.POST['decision'] 
-            anotation=""
+            anotation=None
 
             client_p_exp=request.POST['client_p_exp'] 
             client_m_exp=request.POST['client_m_exp'] 
@@ -285,7 +285,6 @@ def detailCourrier(request,codex):
     try:
         result=dao_courrier.toGetCourrier(codex,username.entreprise)
         agents=dao_courrier.toListCourrierAffecte(username.entreprise,username.entreprise.code,result.id)
-        print('#### ',agents)
         context = {'title':'Détail Courier','entreprise':username.entreprise,'result':result,
                     'agents':agents
         
@@ -336,6 +335,71 @@ def listeCourrier(request):
         return printErrorFormat.printError("Views","personneMorale",e,request,"errors/error.html")
 
 @login_required(login_url='login_view')
+def listeCourrierAffecter(request):
+    #-----------------  user ----------------------
+    getuser_id=request.user.id                    #
+    username= dao_user.getUtilisateur(getuser_id) #
+    #----------------- / user ---------------------
+    try:
+        courrier=dao_courrier.toListCourrierAffecter(username.entreprise,username.entreprise.code)
+        
+        #courrier=dao_courrier.toListCourrierAffecterMesAtaches(username.entreprise,username.entreprise.code,getuser_id)
+        context = {'title':'Courriers Affecté','entreprise':username.entreprise,
+                   'nature':dao_courrier.toListNature(),
+                   'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
+                   'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
+                   'courrier':courrier
+        }
+        template = loader.get_template('listeCourrier.html')
+        return HttpResponse(template.render(context, request))
+    except Exception as e:
+        return printErrorFormat.printError("Views","personneMorale",e,request,"errors/error.html")
+
+@login_required(login_url='login_view')
+def listeCourrierAffecterMesTaches(request):
+    #-----------------  user ----------------------
+    getuser_id=request.user.id                    #
+    username= dao_user.getUtilisateur(getuser_id) #
+    #----------------- / user ---------------------
+    try:
+        
+        courrier=dao_courrier.toListCourrierAffecterMesAtaches(username.entreprise,username.entreprise.code,getuser_id)
+        context = {'title':'Courriers Affecté','entreprise':username.entreprise,
+                   'nature':dao_courrier.toListNature(),
+                   'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
+                   'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
+                   'courrier':courrier
+        }
+        template = loader.get_template('listeCourrierMesTaches.html')
+        return HttpResponse(template.render(context, request))
+    except Exception as e:
+        return printErrorFormat.printError("Views","listeCourrierAffecterMesTaches",e,request,"errors/error.html")
+
+@login_required(login_url='login_view')
+def listeCourrierTraiterMesTaches(request):
+    #-----------------  user ----------------------
+    getuser_id=request.user.id                    #
+    username= dao_user.getUtilisateur(getuser_id) #
+    #----------------- / user ---------------------
+    try:
+        
+        courrier=dao_courrier.toListeCourrierTraiteMestache(username.entreprise,username.entreprise.code,getuser_id)
+        context = {'title':'Courriers Traité','entreprise':username.entreprise,
+                   'nature':dao_courrier.toListNature(),
+                   'client_moral':dao_personneMorale.toListPersonneMorale(username.entreprise,username.entreprise.code),
+                   'client_physique':dao_personnePysique.toListPersonnePhysique(username.entreprise,username.entreprise.code),
+                   'courrier':courrier
+        }
+        template = loader.get_template('listeCourrierMesTaches.html')
+        return HttpResponse(template.render(context, request))
+    except Exception as e:
+        return printErrorFormat.printError("Views","listeCourrierAffecterMesTaches",e,request,"errors/error.html")
+
+
+
+
+
+@login_required(login_url='login_view')
 def detailpersonnePhysique(request,codex):
     #-----------------  user ----------------------
     getuser_id=request.user.id                    #
@@ -367,6 +431,50 @@ def postAffectationCourrier(request):
             code_ent=username.entreprise.code
 
             dao_courrier.toAffecterAgent( courrier,agent,entreprise,code_ent)            
+
+        return HttpResponseRedirect(reverse("detailCourrier",args=(codex,)))
+    except Exception as e:
+        return printErrorFormat.printError("Views","personnePhysique",e,request,"errors/error.html")
+
+@login_required(login_url='login_view')
+def postAnnotation(request):
+    
+    try:
+        #-----------------  user ----------------------
+        getuser_id=request.user.id                    #
+        username= dao_user.getUtilisateur(getuser_id) #
+        #----------------- / user ---------------------
+        if request.method == 'POST':
+   
+            codex=request.POST['codex']
+            annotation=request.POST['annotation']
+       
+            entreprise=username.entreprise
+            code_ent=username.entreprise.code
+
+            dao_courrier.toAnnotation( codex,code_ent,entreprise,annotation,username)           
+
+        return HttpResponseRedirect(reverse("detailCourrier",args=(codex,)))
+    except Exception as e:
+        return printErrorFormat.printError("Views","personnePhysique",e,request,"errors/error.html")
+
+@login_required(login_url='login_view')
+def postAnnotationCloture(request):
+    
+    try:
+        #-----------------  user ----------------------
+        getuser_id=request.user.id                    #
+        username= dao_user.getUtilisateur(getuser_id) #
+        #----------------- / user ---------------------
+        if request.method == 'POST':
+   
+            codex=request.POST['codex']
+            annotation=request.POST['annotation']
+       
+            entreprise=username.entreprise
+            code_ent=username.entreprise.code
+
+            dao_courrier.toAnnotationCloture( codex,code_ent,entreprise,annotation,username)           
 
         return HttpResponseRedirect(reverse("detailCourrier",args=(codex,)))
     except Exception as e:

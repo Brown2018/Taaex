@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.template import loader
 from django.contrib.auth import (authenticate,get_user_model,login,logout)
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django.urls import reverse_lazy, reverse
 import datetime
 from random import randint

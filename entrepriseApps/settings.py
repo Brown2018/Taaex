@@ -26,7 +26,7 @@ SECRET_KEY = 'ky_g@q&#kdi5#*koz6pdgzkxafa)4g6b3ofv-hseht(g8epo4!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'security',
     'GestionCouriers',
     'datacenter',
-    'ResourceHumaines'
+    'ResourceHumaines',
+   # 'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   # 'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'entrepriseApps.urls'

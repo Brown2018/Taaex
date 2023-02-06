@@ -1,4 +1,4 @@
-from GestionCouriers.models import Model_courrier,Model_TypeCourrier,Model_NatureCourrier,Model_AgentAffecterCourrier
+from GestionCouriers.models import Model_courrier,Model_TypeCourrier,Model_NatureCourrier,Model_AgentAffecterCourrier,Model_Annotation
 import secrets
 import string
 class dao_courrier(object):
@@ -33,11 +33,47 @@ class dao_courrier(object):
     @staticmethod
     def toListCourrierTraiter(entreprise,code_ent):
         try:
-            return Model_courrier.objects.filter(entreprise=entreprise,code_ent=code_ent,traiter=True)
+            c= Model_courrier.objects.filter(entreprise=entreprise,code_ent=code_ent,traiter=True)
+            print(' ### ### ',c)
+            return c
+
+        except Exception as ex:
+            return None
+    @staticmethod
+    def toListCourrierAffecter(entreprise,code_ent):
+        try:
+            c= Model_courrier.objects.filter(entreprise=entreprise,code_ent=code_ent,afecter=True)
+            return c
         except Exception as ex:
             return None
 
-       
+    @staticmethod
+    def toListCourrierAffecterMesAtaches(entreprise,code_ent,current_user_id):
+        try:
+            print('### ',entreprise,' ',code_ent,' ',current_user_id)
+            a=Model_AgentAffecterCourrier.objects.filter(entreprise=entreprise,code_ent=code_ent,agent=current_user_id).select_related('agent','entreprise','courrier')
+            print('### ',a)
+            c=[]
+            for item in a: 
+                c.append(Model_courrier.objects.filter(entreprise=entreprise,code_ent=code_ent,traiter=False,afecter=True,pk=item.courrier_id).select_related('entreprise','typecourrir','nature','client_p','client_m'))
+            return c
+        except Exception as ex:
+            print('## ',ex)
+            return None
+
+    @staticmethod
+    def toListeCourrierTraiteMestache(entreprise,code_ent,current_user_id):
+        try:
+            a=Model_AgentAffecterCourrier.objects.filter(entreprise=entreprise,code_ent=code_ent,agent=current_user_id).select_related('agent','entreprise','courrier')
+            c=[]
+            for item in a: 
+                c.append(Model_courrier.objects.filter(entreprise=entreprise,code_ent=code_ent,traiter=True,afecter=True,pk=item.courrier_id).select_related('entreprise','typecourrir','nature','client_p','client_m'))
+            return c
+        except Exception as ex:
+            print('## ',ex)
+            return None
+
+
     @staticmethod
     def toGetCourrier(codex,entreprise):
         return Model_courrier.objects.get(codex=codex,entreprise=entreprise)
@@ -66,7 +102,6 @@ class dao_courrier(object):
             codex=codex,
             client_intitule=client_intitule,
             decision=decision,
-            anotation=anotation,
             client_p_exp_id=client_p_exp,
             client_m_exp_id=client_m_exp,
             client_intitule_exp=client_intitule_exp
@@ -82,7 +117,9 @@ class dao_courrier(object):
       
         try:
             codex=''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(100))
-
+            cour=Model_courrier.objects.get(pk=courrier)
+            cour.afecter=True
+            cour.save()
             valeur_=Model_AgentAffecterCourrier(            
             courrier_id=courrier , 
             agent_id=agent,
@@ -102,3 +139,42 @@ class dao_courrier(object):
         except Exception as ex:
             print(' #### ',ex)
             return None
+    @staticmethod
+    def toAnnotation( courrier_codex,code,entreprise,annotation,agent):
+        try:
+            codex=''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(100))
+            courrier=Model_courrier.objects.get(codex=courrier_codex)
+            valeur_=Model_Annotation(            
+            courrier_id=courrier.id , 
+            code_ent=code,
+            entreprise=entreprise, 
+            annotation=annotation,
+            employer_id=agent.id,
+            codex=codex)
+            valeur_.save()
+            return valeur_ 
+           
+        except Exception as ex:
+            print('##### error',ex)
+            return False
+
+    @staticmethod
+    def toAnnotationCloture( courrier_codex,code,entreprise,annotation,agent):
+        try:
+            codex=''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(100))
+            courrier=Model_courrier.objects.get(codex=courrier_codex)
+            courrier.traiter=True
+            courrier.save()
+            valeur_=Model_Annotation(            
+            courrier_id=courrier.id , 
+            code_ent=code,
+            entreprise=entreprise, 
+            annotation=annotation,
+            employer_id=agent.id,
+            codex=codex)
+            valeur_.save()
+            return valeur_ 
+           
+        except Exception as ex:
+            print('##### error',ex)
+            return False

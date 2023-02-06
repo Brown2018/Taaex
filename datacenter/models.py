@@ -64,6 +64,7 @@ class Model_Utilisateur(models.Model):
     def __str__(self):
         return str(self.utilisateur)
 
+
 class Model_PhotoProfil(models.Model):
     auteur=models.ForeignKey("Model_Utilisateur", related_name="utilisateur_photo",blank=True, null=True, on_delete=models.CASCADE)
     avatar=models.CharField(max_length = 150, null = True, blank = True)

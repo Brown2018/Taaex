@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
 from . import views
-from django.conf.urls import url
+#from django.conf.urls import url
 
 urlpatterns = [
     path('', views.get_sign_in,name="security_sign_in"),
@@ -30,11 +30,11 @@ urlpatterns = [
     # resent mail
     path('resentMessage', views.resentMessage,name="security_resentMessage"),
     # activation user count
-    url(r'^activationUser/$', views.activationUser, name='activationUser'),
+    re_path(r'^activationUser/$', views.activationUser, name='activationUser'),
     #verification user name
-    url(r'^verificationUserName/form/$', views.get_Username, name='security_verificationUserName'),
+    re_path(r'^verificationUserName/form/$', views.get_Username, name='security_verificationUserName'),
     #verification mail
-    url(r'^verificationUserEmail/form/$', views.get_Useremail, name='security_verificationUserEmail'),
+    re_path(r'^verificationUserEmail/form/$', views.get_Useremail, name='security_verificationUserEmail'),
     
    
 ]
