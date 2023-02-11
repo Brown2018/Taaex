@@ -7,7 +7,7 @@
     <h1>{{title}}</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Accueil</a></li>
         <li class="breadcrumb-item active">{{title}}</li>
       </ol>
     </nav>
@@ -29,11 +29,11 @@
                         <div class="row">
                               
                                 <div class="col-md-6">
-                                    <input type="text" name="intitule" class="form-control" placeholder="Nom">
+                                    <input type="text" name="intitule" class="form-control" placeholder="Raison sociale">
                                     <br>
                                 </div>       
                                 <div class="col-md-6">
-                                  <input type="text" name="rccm" class="form-control" placeholder="	N° Rccm">
+                                  <input type="text" name="rccm" class="form-control" placeholder="	N° RCCM">
                                   <br>
                               </div>
                               
@@ -63,20 +63,20 @@
                               <br>
                           </div>    
                           <div class="col-md-6">
-                            <input type="datetime-local" name="Date_creation_entreprise" class="form-control" placeholder="Date_creation_entreprise">
+                            <input type="datetime-local" name="Date_creation_entreprise" class="form-control" placeholder="Date de création">
                             <br>
                         </div>  
                         <div class="col-md-6">
-                          <input type="text" name="Effectifs" class="form-control" placeholder="Effectifs">
+                          <input type="text" name="Effectifs" class="form-control" placeholder="Effectif">
                           <br>
                       </div>     
                         <div class="col-md-6">
-                          <input type="text" name="specialisation" class="form-control" placeholder="Specialisation">
+                          <input type="text" name="specialisation" class="form-control" placeholder="Secteur d'activités">
                           <br>
                       </div>
                       
                       <div class="col-md-12">
-                        <input type="text" name="adresse" class="form-control" placeholder="Adresse">
+                        <input type="text" name="adresse" class="form-control" placeholder="Adresse complète">
                         <br>
                     </div>     
                     <div class="col-md-12">
@@ -92,7 +92,7 @@
                       <br>
                   </div> 
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-success">Ajouter</button>
+                      <button type="submit" class="btn btn-success">Ajouté</button>
                       <br>
                   </div>  
                         </div>
@@ -133,11 +133,11 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Nom</th>
-                      <th scope="col">N° Rccm</th>
+                      <th scope="col">Raison sociale</th>
+                      <th scope="col">N° RCCM</th>
                       <th scope="col">Téléphone</th>
                       <th scope="col">E-mail</th>
-                      <th scope="col">Specialisation</th>
+                      <th scope="col">Secteur d'activités</th>
                     </tr>
                   </thead>
                   <tbody>

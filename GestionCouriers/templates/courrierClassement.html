@@ -7,7 +7,7 @@
     <h1>{{title}}</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Accueil</a></li>
         <li class="breadcrumb-item active">{{title}}</li>
       </ol>
     </nav>
@@ -20,7 +20,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="card-title">Ajout Courrier</h5>
+                        <h5 class="card-title">Ajout courrier</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -29,21 +29,21 @@
                         <div class="row">
                               
                                 <div class="col-md-6">
-                                    <input type="text" name="libele" class="form-control" placeholder="Libele">
+                                    <input type="text" name="libele" class="form-control" placeholder="Libellé">
                                     <br>
                                 </div>       
                                 <div class="col-md-6">
-                                  <input type="text" name="concerne" class="form-control" placeholder="Concerne">
+                                  <input type="text" name="concerne" class="form-control" placeholder="Objet">
                                   <br>
                               </div>
                               
                               <div class="col-md-6">
-                                <input type="text" name="reference" class="form-control" placeholder="N° Reference">
+                                <input type="text" name="reference" class="form-control" placeholder="N° référence">
                                 <br>
                             </div>       
                             <div class="col-md-6">
                               <select name="typecourrir" class="form-select" aria-label="Default select example">
-                                <option selected>Type Courrier</option>
+                                <option selected>Type courrier</option>
                                 {% for item in typecourrir%}
                                 <option value="{{item.id}}">{{item.typecourrir}}</option>
                                 {%endfor%}
@@ -52,7 +52,7 @@
                           </div>    
                           <div class="col-md-6">
                             <select name="nature" class="form-select" aria-label="Default select example">
-                              <option value="" selected>Nature Courrier</option>
+                              <option value="" selected>Nature courrier</option>
                               {% for item in nature%}
                               <option value="{{item.id}}">{{item.nature}}</option>
                               {%endfor%}
@@ -60,11 +60,11 @@
                             <br>
                         </div> 
                         <hr>
-                        <h6>Source Provenance</h6>
+                        <h6>Source de provenance</h6>
                         <hr>
                         <div class="col-md-6">
                           <select name="client_m" class="form-select" aria-label="Default select example">
-                            <option value="" selected>Personne Moral</option>
+                            <option value="" selected>Personne Morale</option>
                           {%for item in client_moral%}
                             <option value="{{item.id}}">{{item.intitule}}</option>
                             {%endfor%}
@@ -81,16 +81,16 @@
                             <br>
                         </div> 
                         <div class="col-md-6">
-                          <input type="text" name="client_intitule" class="form-control" placeholder="S° Autre provenance">
+                          <input type="text" name="client_intitule" class="form-control" placeholder="Autre source">
                            <br>
                       </div> 
                       <hr>
                     <div class="col-md-12">
-                      <textarea  style="height: 100px;" name="decision" class="form-control" placeholder="Decision"></textarea>
+                      <textarea  style="height: 100px;" name="decision" class="form-control" placeholder="Décision"></textarea>
                       <br>
                   </div> 
                   <div class="col-md-12">
-                    <textarea  style="height: 100px;" name="anotation" class="form-control" placeholder="Annotation"></textarea>
+                    <textarea  style="height: 100px;" name="anotation" class="form-control" placeholder="Annotations"></textarea>
                     <br>
                 </div> 
                     <div class="col-md-12">
@@ -135,10 +135,10 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Date Arriver</th>
-                      <th scope="col">Libele</th>
-                      <th scope="col">N° Reference</th>
-                      <th scope="col">Anotation</th>
+                      <th scope="col">Date arrivée</th>
+                      <th scope="col">Libellé</th>
+                      <th scope="col">N° référence</th>
+                      <th scope="col">Annotations</th>
                       <th scope="col">Nature</th>
                     </tr>
                   </thead>

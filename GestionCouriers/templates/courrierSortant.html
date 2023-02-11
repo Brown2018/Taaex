@@ -7,7 +7,7 @@
     <h1>{{title}}</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Accueil</a></li>
         <li class="breadcrumb-item active">{{title}}</li>
       </ol>
     </nav>
@@ -20,7 +20,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="card-title">Ajout Courrier</h5>
+                        <h5 class="card-title">Ajout courrier</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -43,7 +43,7 @@
                             </div>       
                             <div class="col-md-6">
                               <select name="typecourrir" class="form-select" aria-label="Default select example">
-                                <option selected>Type Courrier</option>
+                                <option selected>Type courrier</option>
                                 {% for item in typecourrir%}
                                 <option value="{{item.id}}">{{item.typecourrir}}</option>
                                 {%endfor%}
@@ -52,7 +52,7 @@
                           </div>    
                           <div class="col-md-6">
                             <select name="nature" class="form-select" aria-label="Default select example">
-                              <option value="" selected>Nature Courrier</option>
+                              <option value="" selected>Nature courrier</option>
                               {% for item in nature%}
                               <option value="{{item.id}}">{{item.nature}}</option>
                               {%endfor%}
@@ -64,7 +64,7 @@
                         <hr>
                         <div class="col-md-6">
                           <select name="client_m" class="form-select" aria-label="Default select example">
-                            <option value="" selected>Personne Moral</option>
+                            <option value="" selected>Personne Morale</option>
                           {%for item in client_moral%}
                             <option value="{{item.id}}">{{item.intitule}}</option>
                             {%endfor%}
@@ -81,7 +81,7 @@
                             <br>
                         </div> 
                         <div class="col-md-6">
-                          <input type="text" name="client_intitule" class="form-control" placeholder="S° Autre Provenance">
+                          <input type="text" name="client_intitule" class="form-control" placeholder="Autre source">
                            <br>
                       </div> 
                       <hr>
@@ -109,19 +109,19 @@
                       <br>
                   </div> 
                   <div class="col-md-6">
-                    <input type="text" name="client_intitule_ex" class="form-control" placeholder="S° Autre Expediteur">
+                    <input type="text" name="client_intitule_ex" class="form-control" placeholder="Autre expéditeur">
                      <br>
                 </div> 
                 <hr>
 
                 {% comment %} destinateur {% endcomment %}
                 <div class="col-md-12">
-                  <textarea  style="height: 100px;" name="decision" class="form-control" placeholder="Commentaire"></textarea>
+                  <textarea  style="height: 100px;" name="decision" class="form-control" placeholder="Commentaires"></textarea>
                   <br>
               </div> 
 
                     <div class="col-md-12">
-                      <button type="submit" class="btn btn-success">Ajouter</button>
+                      <button type="submit" class="btn btn-success">Ajouté</button>
                       <br>
                   </div>  
                         </div>
@@ -148,7 +148,7 @@
                   </li>
 
                   <li> <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#physiquePersonne">
-                   Nouvel Enregistrement
+                   Nouvel enregistrement
                   </button></li>
                   <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
@@ -162,10 +162,10 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Date Arriver</th>
-                      <th scope="col">Libele</th>
-                      <th scope="col">N° Reference</th>
-                      <th scope="col">Anotation</th>
+                      <th scope="col">Date de réception</th>
+                      <th scope="col">Libellé</th>
+                      <th scope="col">N° référence</th>
+                      <th scope="col">Annotations</th>
                       <th scope="col">Nature</th>
                     </tr>
                   </thead>

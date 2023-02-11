@@ -5,7 +5,7 @@
         <h1>{{title}}</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
                 <li class="breadcrumb-item active">{{title}}</li>
             </ol>
         </nav>
@@ -109,7 +109,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="card-title">Ajout Annotation</h5>
+                                                        <h5 class="card-title">Ajout des annotations</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <form id="annotationagentcourrier" action="{% url 'postAnnotationCloture' %}" method="POST">
@@ -119,14 +119,14 @@
                                                         <div class="modal-body">
 
                                                             <div class="row mb-3">
-                                                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Votre Annotations</label>
+                                                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Annotations</label>
                                                                 <div class="col-md-8 col-lg-9">
                                                                     <textarea style="height: 100px;" name="annotation" class="form-control" placeholder="Votre Message"></textarea>
                                                                 </div>
                                                             </div>
                                                             <hr>
                                                             <div>
-                                                                <button type="submit" class="btn btn-primary"> Dossier Traité</button>
+                                                                <button type="submit" class="btn btn-primary">Dossier traité</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -135,7 +135,7 @@
                                         </div>
                                         {% comment %} /modale 111 {% endcomment %}
                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#anotation{{ forloop.counter }}">
-                                            Fermer Dossier
+                                            Fermé dossier
                                         </button>
 
                                     </div>
@@ -161,7 +161,7 @@
                                                     {%endif%} {% if result.client_p != null %}
                                                     <th scope="col">Personne Physique</th>
                                                     {%endif%}
-                                                    <th scope="col">Autre</th>
+                                                    <th scope="col">Autres</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -199,7 +199,7 @@
                                                     {%endif%} {% if result.client_p_exp != null %}
                                                     <th scope="col">Personne Physique</th>
                                                     {%endif%}
-                                                    <th scope="col">Autre</th>
+                                                    <th scope="col">Autres</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -236,7 +236,7 @@
                                 <!-- Settings Form -->
                                 <hr>
                                 <center>
-                                    <h5>Agent(s) Affecté(s) Au Dossier</h5>
+                                    <h5>Agent(s) affecté(s) au dossier</h5>
                                 </center>
                                 <hr>
                                 <div class="row">
@@ -247,7 +247,7 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Nom</th>
-                                                    <th scope="col">Post-Nom</th>
+                                                    <th scope="col">Post-nom</th>
 
                                                 </tr>
                                             </thead>
@@ -267,7 +267,7 @@
                                 </div>
                                 <hr>
                                 <center>
-                                    <h5> Annotation(s)</h5>
+                                    <h5>Annotation(s)</h5>
                                 </center>
                                 <hr>
                                 <div class="row mb-3">
@@ -278,7 +278,7 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Source</th>
-                                                    <th scope="col">Annotation</th>
+                                                    <th scope="col">Annotations</th>
 
                                                 </tr>
                                             </thead>

@@ -7,7 +7,7 @@
     <h1>{{title}}</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'dashbord'%}">Accueil</a></li>
         <li class="breadcrumb-item active">{{title}}</li>
       </ol>
     </nav>
@@ -29,21 +29,21 @@
                         <div class="row">
                               
                                 <div class="col-md-6">
-                                    <input type="text" name="libele" class="form-control" placeholder="Libele">
+                                    <input type="text" name="libele" class="form-control" placeholder="Libellé">
                                     <br>
                                 </div>       
                                 <div class="col-md-6">
-                                  <input type="text" name="concerne" class="form-control" placeholder="Concerne">
+                                  <input type="text" name="concerne" class="form-control" placeholder="Objet">
                                   <br>
                               </div>
                               
                               <div class="col-md-6">
-                                <input type="text" name="reference" class="form-control" placeholder="N° Reference">
+                                <input type="text" name="reference" class="form-control" placeholder="N° référence">
                                 <br>
                             </div>       
                             <div class="col-md-6">
                               <select name="typecourrir" class="form-select" aria-label="Default select example">
-                                <option selected>Type Courrier</option>
+                                <option selected>Type courrier</option>
                                 {% for item in typecourrir%}
                                 <option value="{{item.id}}">{{item.typecourrir}}</option>
                                 {%endfor%}
@@ -52,7 +52,7 @@
                           </div>    
                           <div class="col-md-6">
                             <select name="nature" class="form-select" aria-label="Default select example">
-                              <option value="" selected>Nature Courrier</option>
+                              <option value="" selected>Nature courrier</option>
                               {% for item in nature%}
                               <option value="{{item.id}}">{{item.nature}}</option>
                               {%endfor%}
@@ -64,7 +64,7 @@
                         <hr>
                         <div class="col-md-6">
                           <select name="client_m" class="form-select" aria-label="Default select example">
-                            <option value="" selected>Personne Moral</option>
+                            <option value="" selected>Personne Morale</option>
                           {%for item in client_moral%}
                             <option value="{{item.id}}">{{item.intitule}}</option>
                             {%endfor%}
@@ -81,18 +81,18 @@
                             <br>
                         </div> 
                         <div class="col-md-6">
-                          <input type="text" name="client_intitule" class="form-control" placeholder="S° Autre Provenance">
+                          <input type="text" name="client_intitule" class="form-control" placeholder="Autre source">
                            <br>
                       </div> 
                       <hr>
  
                   {% comment %} destinataire {% endcomment %}
                   <hr>
-                  <h6>Expediteur</h6>
+                  <h6>Expéditeur</h6>
                   <hr>
                   <div class="col-md-6">
                     <select name="client_m_exp" class="form-select" aria-label="Default select example">
-                      <option value="" selected>Personne Moral</option>
+                      <option value="" selected>Personne Morale</option>
                     {%for item in client_moral%}
                       <option value="{{item.id}}">{{item.intitule}}</option>
                       {%endfor%}
@@ -109,14 +109,14 @@
                       <br>
                   </div> 
                   <div class="col-md-6">
-                    <input type="text" name="client_intitule_ex" class="form-control" placeholder="S° Autre Expediteur">
+                    <input type="text" name="client_intitule_ex" class="form-control" placeholder="Autre expéditeur">
                      <br>
                 </div> 
                 <hr>
 
                 {% comment %} destinateur {% endcomment %}
                 <div class="col-md-12">
-                  <textarea  style="height: 100px;" name="decision" class="form-control" placeholder="Commentaire"></textarea>
+                  <textarea  style="height: 100px;" name="decision" class="form-control" placeholder="Commentaires"></textarea>
                   <br>
               </div> 
 
@@ -148,7 +148,7 @@
                   </li>
 
                   <li> <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#physiquePersonne">
-                   Nouvel Enregistrement
+                   Nouvel enregistrement
                   </button></li>
                   <li>
 
@@ -165,10 +165,10 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Date Arriver</th>
-                      <th scope="col">Libele</th>
-                      <th scope="col">N° Reference</th>
-                      <th scope="col">Anotation</th>
+                      <th scope="col">Date de réception</th>
+                      <th scope="col">Libellé</th>
+                      <th scope="col">N° référence</th>
+                      <th scope="col">Annotations</th>
                       <th scope="col">Nature</th>
                       <th scope="col">Affectation</th>
                       <th scope="col">Annotation</th>
@@ -191,7 +191,7 @@
                                                           <div class="modal-dialog">
                                                               <div class="modal-content">
                                                                   <div class="modal-header">
-                                                                      <h5 class="card-title">Affectation Tâche</h5>
+                                                                      <h5 class="card-title">Affectation tâche</h5>
                                                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                   </div>
                                                                   <div class="modal-body">
@@ -229,7 +229,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="card-title">Ajout Annotation</h5>
+                                        <h5 class="card-title">Ajout annotations</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <form id ="annotationagentcourrier" action="{% url 'postAnnotation' %}" method="POST">
@@ -239,14 +239,14 @@
                                     <div class="modal-body">
                                   
                                       <div class="row mb-3">
-                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Votre Annotations</label>
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Vos annotations</label>
                                         <div class="col-md-8 col-lg-9">
                                           <textarea  style="height: 100px;" name="annotation" class="form-control" placeholder="Votre Message"></textarea>
                                         </div>
                                       </div>
                                       <hr>
                                       <div >
-                                        <button type="submit" class="btn btn-primary">Noter</button>
+                                        <button type="submit" class="btn btn-primary">Noté</button>
                                       </div>
                                     </div>
                                   </form>
@@ -255,7 +255,7 @@
                         </div>
                         {% comment %} /modale 111 {% endcomment %}
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#anotation{{ forloop.counter }}">
-                          Anotation
+                          Annotations
                         </button>
 
                       </td>
